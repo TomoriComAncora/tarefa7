@@ -46,3 +46,7 @@ button {
   padding: 10px 5px;
   border-radius: 8px;
 }
+
+button{
+    cursor: pointer;
+}

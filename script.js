@@ -1,5 +1,6 @@
 const buttonCadastro = document.getElementById("cadastrar");
 const cep = document.getElementById("cep");
+const numero = document.getElementById("numero");
 
 async function buscarCep(cepInformado) {
   await fetch(`https://viacep.com.br/ws/${cepInformado}/json/`)
@@ -13,6 +14,7 @@ async function buscarCep(cepInformado) {
         localStorage.setItem("cep", cepInformado);
       } else {
         alert("CEP não encontrado");
+        limparCampos();
       }
     })
     .catch((err) => console.log(err));
@@ -25,6 +27,7 @@ function limparCampos() {
   document.getElementById("bairro").value = "";
   document.getElementById("cidade").value = "";
   document.getElementById("estado").value = "";
+  localStorage.removeItem("cep");
 }
 
 cep.addEventListener("blur", (e) => {
@@ -32,6 +35,8 @@ cep.addEventListener("blur", (e) => {
 
   if (!(cepInformado.length === 8)) {
     alert("Informe um CEP válido");
+    limparCampos();
+    return;
   } else {
     buscarCep(cepInformado);
   }
@@ -40,8 +45,9 @@ cep.addEventListener("blur", (e) => {
 document.addEventListener("DOMContentLoaded", () => {
   const cepConsulta = localStorage.getItem("cep");
 
-  if (!cepConsulta) {
-    localStorage.setItem("cep", cep.value);
+  if (!cepConsulta || cepConsulta.length === 0) {
+    console.log("Não tem nada no local Storage");
+    return;
   } else {
     cep.value = cepConsulta;
     buscarCep(cepConsulta);
@@ -49,7 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const botao = document.getElementById("cadastrar");
-botao.addEventListener("click", () => {
-  alert("Endereço cadastrado com sucesso!");
-  limparCampos();
+botao.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (cep.value.length === 8 && numero.value.length > 0) {
+    alert("Endereço cadastrado com sucesso!");
+    limparCampos();
+  } else {
+    alert("Preencha os campos");
+  }
 });
