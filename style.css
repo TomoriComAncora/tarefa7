@@ -10,9 +10,11 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #eee;
 }
 
 .container {
+  background-color: #fff;
   width: 385px;
   margin: 0 auto;
   display: flex;
@@ -21,10 +23,13 @@ main {
   align-items: center;
   border: 1px solid #225423;
   border-radius: 8px;
+  box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-.container h2{
-    margin: 1rem 0;
+.container h2 {
+  margin: 1rem 0;
 }
 
 form {
